@@ -1,0 +1,188 @@
+%\NeedsTeXFormat{LaTeX2e}
+%\ProvidesPackage{simpleclass}[2022/03/29 Simple Class]
+%
+%\RequirePackage{tikz}
+%\RequirePackage{xparse}
+
+\usetikzlibrary{arrows}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{shapes.geometric}
+
+\usepackage{xparse}
+\def\interfaceLine{
+	\multicolumn{1}{|c|}{
+		\textless\textless interface\textgreater\textgreater
+	}
+}
+\def\enumerationLine{
+	\multicolumn{1}{|c|}{
+		\textless\textless enumeration\textgreater\textgreater
+	}
+}
+\def\entityNameLine#1{
+	\multicolumn{1}{|c|}{
+		\textbf{#1}
+	}
+}
+\NewDocumentCommand\interface{mgg}{
+	\IfNoValueTF{#2}{
+		\begin{tabular}{|l|}
+			\hline
+			\interfaceLine\\
+			\entityNameLine{#1}\\
+			\hline
+		\end{tabular}
+	}{
+		\IfNoValueTF{#3}{
+			\begin{tabular}{|l|}
+				\hline
+				\interfaceLine\\
+				\entityNameLine{#1}\\
+				\hline
+				#2\\
+				\hline
+			\end{tabular}
+		}{
+			\begin{tabular}{|l|}
+				\hline
+				\interfaceLine\\
+				\entityNameLine{#1}\\
+				\hline
+				#2\\
+				\hline
+				#3\\
+				\hline
+			\end{tabular}
+		}
+	}
+}
+\NewDocumentCommand\abstractClass{mgg}{
+	\IfNoValueTF{#2}{
+		\begin{tabular}{|l|}
+			\hline
+			\entityNameLine{\textit{#1}}\\
+			\hline
+		\end{tabular}
+	}{
+		\IfNoValueTF{#3}{
+			\begin{tabular}{|l|}
+				\hline
+				\entityNameLine{\textit{#1}}\\
+				\hline
+				#2\\
+				\hline
+			\end{tabular}
+		}{
+			\begin{tabular}{|l|}
+				\hline
+				\entityNameLine{\textit{#1}}\\
+				\hline
+				#2\\
+				\hline
+				#3\\
+				\hline
+			\end{tabular}
+		}
+	}
+}
+\NewDocumentCommand\class{mgg}{
+	\IfNoValueTF{#2}{
+		\begin{tabular}{|l|}
+			\hline
+			\entityNameLine{#1}\\
+			\hline
+		\end{tabular}
+	}{
+		\IfNoValueTF{#3}{
+			\begin{tabular}{|l|}
+				\hline
+				\entityNameLine{#1}\\
+				\hline
+				#2\\
+				\hline
+			\end{tabular}
+		}{
+			\begin{tabular}{|l|}
+				\hline
+				\entityNameLine{#1}\\
+				\hline
+				#2\\
+				\hline
+				#3\\
+				\hline
+			\end{tabular}
+		}
+	}
+}
+\NewDocumentCommand\enumeration{mgg}{
+	\IfNoValueTF{#2}{
+		\begin{tabular}{|l|}
+			\hline
+			\enumerationLine\\
+			\entityNameLine{#1}\\
+			\hline
+		\end{tabular}
+	}{
+		\IfNoValueTF{#3}{
+			\begin{tabular}{|l|}
+				\hline
+				\enumerationLine\\
+				\entityNameLine{#1}\\
+				\hline
+				#2\\
+				\hline
+			\end{tabular}
+		}{
+			\begin{tabular}{|l|}
+				\hline
+				\enumerationLine\\
+				\entityNameLine{#1}\\
+				\hline
+				#2\\
+				\hline
+				#3\\
+				\hline
+			\end{tabular}
+		}
+	}
+}
+
+%\NewDocumentCommand\enumeration{}
+% hardcoded variable for the inner xsep of every isClassDiagram node
+% FIXME this works wrong for small 
+\def\metaextradis{-0.360cm}
+
+\tikzset{
+	dashedArrow/.style={
+		dash pattern=on 1.5pt off 1.5pt	
+	},
+	interfaceRealization/.style={
+		-{Latex[open, width=2mm, length=3mm]},
+		dashedArrow
+	},
+	isClassDiagram/.style={
+		%inner sep=0,
+		inner ysep=0,
+		inner xsep=\metaextradis,
+		outer sep=0
+	},
+	useArrow/.style={
+		-{Straight Barb[width=2mm, length=1.5mm]},
+		dashedArrow
+	},
+	realizationArrow/.style={
+		-{Latex[open, width=2mm, length=3mm]}
+	},
+	generalizationArrow/.style={
+		-{Latex[open, width=2mm, length=3mm]}
+	},
+	compositionArrow/.style={
+		-{Diamond[width=2mm, length=3mm]}
+	},
+	aggregationArrow/.style={
+		-{ Diamond[open, width=2mm, length=3mm]}
+	},
+}
+
+\endinput
